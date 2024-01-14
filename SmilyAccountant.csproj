@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Finance\Data\" />
+    <Folder Include="Areas\Finance\Views\Shared\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

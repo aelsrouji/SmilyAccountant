@@ -60,9 +60,16 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,AccountCategoryId")] AccountSubCategoryViewModel accountSubCategoryViewModel)
         {
+            ModelState.Remove(nameof(accountSubCategoryViewModel.AccountCategory));
             if (ModelState.IsValid)
             {
-                var accountSubCategory = new AccountSubCategory { Name = accountSubCategoryViewModel.Name, AccountCategoryId = accountSubCategoryViewModel.AccountCategoryId };
+                var accountSubCategory = new AccountSubCategory 
+                { 
+                    Name = accountSubCategoryViewModel.Name, 
+                    AccountCategoryId = accountSubCategoryViewModel.AccountCategoryId,
+                    //AccountCategory = accountSubCategoryViewModel.AccountCategory 
+                };
+
                 accountSubCategory.Id = Guid.NewGuid();
                 _context.Add(accountSubCategory);
                 await _context.SaveChangesAsync();
@@ -85,8 +92,17 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 return NotFound();
             }
-            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name", accountSubCategory.AccountCategoryId);
-            return View(accountSubCategory);
+            
+                var accountSubCategoryViewModel = new AccountSubCategoryViewModel
+                {
+                    Name = accountSubCategory.Name,
+                    Id = accountSubCategory.Id,
+                    AccountCategoryId = accountSubCategory.AccountCategoryId,
+                };
+
+            
+            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name", accountSubCategoryViewModel.AccountCategoryId);
+            return View(accountSubCategoryViewModel);
         }
 
         // POST: AccountSubCategories/Edit/5
@@ -94,23 +110,29 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,AccountCategoryId")] AccountSubCategory accountSubCategory)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,AccountCategoryId")] AccountSubCategoryViewModel accountSubCategoryViewModel)
         {
-            if (id != accountSubCategory.Id)
+            if (id != accountSubCategoryViewModel.Id)
             {
                 return NotFound();
             }
+            ModelState.Remove(nameof(accountSubCategoryViewModel.AccountCategory));
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var accountSubCategory = await _context.AccountSubCategories.FindAsync(id);
+
+                    accountSubCategory.Name = accountSubCategoryViewModel.Name;
+                    accountSubCategory.AccountCategoryId = accountSubCategoryViewModel.AccountCategoryId;
+
                     _context.Update(accountSubCategory);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountSubCategoryExists(accountSubCategory.Id))
+                    if (!AccountSubCategoryExists(accountSubCategoryViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -121,8 +143,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name", accountSubCategory.AccountCategoryId);
-            return View(accountSubCategory);
+            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name", accountSubCategoryViewModel.AccountCategoryId);
+            return View(accountSubCategoryViewModel);
         }
 
         // GET: AccountSubCategories/Delete/5

@@ -8,5 +8,6 @@
 
         public Guid AccountCategoryId { get; set; }
 
+        public virtual AccountCategory AccountCategory { get; set; }
     }
 }
