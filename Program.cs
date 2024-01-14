@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SmilyAccountant.Models;
+using SmilyAccountant.Data;
 
 namespace SmilyAccountant
 {
@@ -33,6 +33,10 @@ namespace SmilyAccountant
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                  name: "Fianance",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
