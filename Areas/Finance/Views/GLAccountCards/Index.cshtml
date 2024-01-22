@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<GLAccountCard>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "GL Account Cards";
 }
 
-<h1>Index</h1>
+<h1>GL Account Cards</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -22,16 +22,16 @@
                 @Html.DisplayNameFor(model => model.Balance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccountCategoryId)
+                @Html.Label("Account Category")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccountSubCategoryId)
+                @Html.Label("Account Sub Category")
+            </th>
+            <th>
+                @Html.Label("Account Type")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DebitCredit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountTypeId)
             </th>
             <th></th>
         </tr>
@@ -49,17 +49,17 @@
                 @Html.DisplayFor(modelItem => item.Balance)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccountCategoryId)
+                @Html.DisplayFor(modelItem => item.AccountCategory.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccountSubCategoryId)
+                @Html.DisplayFor(modelItem => item.AccountSubCategory.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DebitCredit)
+                @Html.DisplayFor(modelItem => item.AccountType.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountTypeId)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DebitCredit)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

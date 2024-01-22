@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using SmilyAccountant.Areas.Finance.Models.Enums;
+﻿using SmilyAccountant.Areas.Finance.Models.Enums;
+using System.ComponentModel;
 
-namespace SmilyAccountant.Areas.Finance.Models
+namespace SmilyAccountant.Areas.Finance.Models.ViewModels
 {
-    public class GLAccountCard
+    public class GLAccountCardViewModel
     {
         public Guid Id { get; set; }
 
@@ -25,9 +25,13 @@ namespace SmilyAccountant.Areas.Finance.Models
         [DisplayName("Debit or Credit?")]
         public DebitCreditBoth DebitCredit { get; set; }
 
-        public virtual AccountCategory AccountCategory { get; set; }
-        public virtual AccountSubCategory AccountSubCategory { get; set; }
-        public virtual AccountType AccountType { get; set; }
-        
+        //public virtual AccountCategory AccountCategory { get; set; }
+        //public virtual AccountSubCategory AccountSubCategory { get; set; }
+        //public virtual AccountType AccountType { get; set; }
+
+
+
+
+
     }
 }

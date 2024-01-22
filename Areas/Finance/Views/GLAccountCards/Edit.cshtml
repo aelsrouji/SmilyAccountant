@@ -1,4 +1,6 @@
-﻿@model GLAccountCard
+﻿@using SmilyAccountant.Areas.Finance.Models.Enums;
+@using SmilyAccountant.Areas.Finance.Models.ViewModels;
+@model GLAccountCardViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -30,24 +32,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="AccountCategoryId" class="control-label"></label>
-                <input asp-for="AccountCategoryId" class="form-control" />
+                <select asp-for="AccountCategoryId" class="form-control" asp-items="ViewBag.AccountCategoryId"></select>
                 <span asp-validation-for="AccountCategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AccountSubCategoryId" class="control-label"></label>
-                <input asp-for="AccountSubCategoryId" class="form-control" />
+                <select asp-for="AccountSubCategoryId" class="form-control" asp-items="ViewBag.AccountSubCategoryId"></select>
                 <span asp-validation-for="AccountSubCategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DebitCredit" class="control-label"></label>
-                <select asp-for="DebitCredit" class="form-control"></select>
-                <span asp-validation-for="DebitCredit" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="AccountTypeId" class="control-label"></label>
-                <input asp-for="AccountTypeId" class="form-control" />
+                <select asp-for="AccountTypeId" class="form-control" asp-items="ViewBag.AccountTypeId"></select>
                 <span asp-validation-for="AccountTypeId" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="DebitCredit" class="control-label"></label>
+                <select asp-for="DebitCredit" asp-items="@Html.GetEnumSelectList<DebitCreditBoth>()"></select>
+                <span asp-validation-for="DebitCredit" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

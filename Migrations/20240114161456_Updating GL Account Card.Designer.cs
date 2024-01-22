@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,9 +12,11 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240114161456_Updating GL Account Card")]
+    partial class UpdatingGLAccountCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,11 +31,16 @@ namespace SmilyAccountant.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("GLAccountCardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GLAccountCardId");
 
                     b.ToTable("AccountCategories");
                 });
@@ -46,6 +54,9 @@ namespace SmilyAccountant.Migrations
                     b.Property<Guid>("AccountCategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("GLAccountCardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -53,6 +64,8 @@ namespace SmilyAccountant.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountCategoryId");
+
+                    b.HasIndex("GLAccountCardId");
 
                     b.ToTable("AccountSubCategories");
                 });
@@ -63,11 +76,16 @@ namespace SmilyAccountant.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("GLAccountCardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GLAccountCardId");
 
                     b.ToTable("AccountTypes");
                 });
@@ -106,6 +124,13 @@ namespace SmilyAccountant.Migrations
                     b.ToTable("GLAccountCards");
                 });
 
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.AccountCategory", b =>
+                {
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GLAccountCard", null)
+                        .WithMany("Categories")
+                        .HasForeignKey("GLAccountCardId");
+                });
+
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.AccountSubCategory", b =>
                 {
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.AccountCategory", "AccountCategory")
@@ -114,12 +139,32 @@ namespace SmilyAccountant.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GLAccountCard", null)
+                        .WithMany("AccountSubCategories")
+                        .HasForeignKey("GLAccountCardId");
+
                     b.Navigation("AccountCategory");
+                });
+
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.AccountType", b =>
+                {
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GLAccountCard", null)
+                        .WithMany("AccountTypes")
+                        .HasForeignKey("GLAccountCardId");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.AccountCategory", b =>
                 {
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.GLAccountCard", b =>
+                {
+                    b.Navigation("AccountSubCategories");
+
+                    b.Navigation("AccountTypes");
+
+                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }
