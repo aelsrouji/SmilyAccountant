@@ -39,6 +39,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var gLAccountCard = await _context.GLAccountCards
+                       .Include("AccountCategory")
+                .Include("AccountSubCategory")
+                .Include("AccountType")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gLAccountCard == null)
             {
@@ -184,6 +187,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var gLAccountCard = await _context.GLAccountCards
+                .Include("AccountCategory")
+                .Include("AccountSubCategory")
+                .Include("AccountType")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gLAccountCard == null)
             {
