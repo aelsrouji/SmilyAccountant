@@ -20,15 +20,15 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             _context = context;
         }
 
-        // GET: AccountTypes
+        // GET: Finance/AccountTypes
         public async Task<IActionResult> Index()
         {
-            return _context.AccountTypes != null ?
-                        View(await _context.AccountTypes.ToListAsync()) :
-                        Problem("Entity set 'SmilyAccountantContext.AccountTypes'  is null.");
+              return _context.AccountTypes != null ? 
+                          View(await _context.AccountTypes.ToListAsync()) :
+                          Problem("Entity set 'SmilyAccountantContext.AccountTypes'  is null.");
         }
 
-        // GET: AccountTypes/Details/5
+        // GET: Finance/AccountTypes/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.AccountTypes == null)
@@ -46,13 +46,13 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             return View(accountType);
         }
 
-        // GET: AccountTypes/Create
+        // GET: Finance/AccountTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AccountTypes/Create
+        // POST: Finance/AccountTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -69,7 +69,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             return View(accountType);
         }
 
-        // GET: AccountTypes/Edit/5
+        // GET: Finance/AccountTypes/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.AccountTypes == null)
@@ -85,7 +85,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             return View(accountType);
         }
 
-        // POST: AccountTypes/Edit/5
+        // POST: Finance/AccountTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -120,7 +120,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             return View(accountType);
         }
 
-        // GET: AccountTypes/Delete/5
+        // GET: Finance/AccountTypes/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.AccountTypes == null)
@@ -138,7 +138,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             return View(accountType);
         }
 
-        // POST: AccountTypes/Delete/5
+        // POST: Finance/AccountTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -152,14 +152,14 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 _context.AccountTypes.Remove(accountType);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AccountTypeExists(Guid id)
         {
-            return (_context.AccountTypes?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.AccountTypes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

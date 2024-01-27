@@ -1,4 +1,4 @@
-﻿namespace SmilyAccountant.Areas.Finance.Models
+﻿namespace SmilyAccountant.Areas.Finance.Models.ViewModels
 {
     public class AccountSubCategoryViewModel
     {

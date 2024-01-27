@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmilyAccountant.Areas.Finance.Models;
+using SmilyAccountant.Areas.Finance.Models.ViewModels;
 using SmilyAccountant.Data;
 
 namespace SmilyAccountant.Areas.Finance.Controllers
@@ -24,7 +25,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         public async Task<IActionResult> Index()
         {
             return _context.GLAccountCards != null ?
-                        View(await _context.GLAccountCards.ToListAsync()) :
+                        View(await _context.GLAccountCards.
+                        Include("AccountCategory").Include("AccountSubCategory").Include("AccountType").ToListAsync()) :
                         Problem("Entity set 'SmilyAccountantContext.GLAccountCards'  is null.");
         }
 
@@ -37,6 +39,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var gLAccountCard = await _context.GLAccountCards
+                       .Include("AccountCategory")
+                .Include("AccountSubCategory")
+                .Include("AccountType")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gLAccountCard == null)
             {
@@ -49,6 +54,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // GET: GLAccountCards/Create
         public IActionResult Create()
         {
+            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name");
+            ViewData["AccountSubCategoryId"] = new SelectList(_context.AccountSubCategories, "Id", "Name");
+            ViewData["AccountTypeId"] = new SelectList(_context.AccountTypes, "Id", "Name");
             return View();
         }
 
@@ -57,16 +65,32 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AccountNo,AccountName,Balance,AccountCategoryId,AccountSubCategoryId,DebitCredit,AccountTypeId")] GLAccountCard gLAccountCard)
+        public async Task<IActionResult> Create([Bind("Id,AccountNo,AccountName,Balance,AccountCategoryId,AccountSubCategoryId,DebitCredit,AccountTypeId")] GLAccountCardViewModel gLAccountCardViewModel)
         {
             if (ModelState.IsValid)
             {
-                gLAccountCard.Id = Guid.NewGuid();
+                var gLAccountCard = new GLAccountCard
+                {
+                    Id = Guid.NewGuid(),
+                    AccountName = gLAccountCardViewModel.AccountName,
+                    AccountCategoryId = gLAccountCardViewModel.AccountCategoryId,
+                    AccountSubCategoryId = gLAccountCardViewModel.AccountSubCategoryId,
+                    AccountTypeId = gLAccountCardViewModel.AccountTypeId,
+                    AccountNo = gLAccountCardViewModel.AccountNo,
+                    Balance = gLAccountCardViewModel.Balance,
+                    DebitCredit = gLAccountCardViewModel.DebitCredit
+                };
+
                 _context.Add(gLAccountCard);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(gLAccountCard);
+
+            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name");
+            ViewData["AccountSubCategoryId"] = new SelectList(_context.AccountSubCategories, "Id", "Name");
+            ViewData["AccountTypeId"] = new SelectList(_context.AccountTypes, "Id", "Name");
+
+            return View(gLAccountCardViewModel);
         }
 
         // GET: GLAccountCards/Edit/5
@@ -82,7 +106,25 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 return NotFound();
             }
-            return View(gLAccountCard);
+
+            var gLAccountCardViewModel = new GLAccountCardViewModel
+            {
+                Id = Guid.NewGuid(),
+                AccountName = gLAccountCard.AccountName,
+                AccountCategoryId = gLAccountCard.AccountCategoryId,
+                AccountSubCategoryId = gLAccountCard.AccountSubCategoryId,
+                AccountTypeId = gLAccountCard.AccountTypeId,
+                AccountNo = gLAccountCard.AccountNo,
+                Balance = gLAccountCard.Balance,
+                DebitCredit = gLAccountCard.DebitCredit
+            };
+
+
+            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name");
+            ViewData["AccountSubCategoryId"] = new SelectList(_context.AccountSubCategories, "Id", "Name");
+            ViewData["AccountTypeId"] = new SelectList(_context.AccountTypes, "Id", "Name");
+
+            return View(gLAccountCardViewModel);
         }
 
         // POST: GLAccountCards/Edit/5
@@ -90,9 +132,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,AccountNo,AccountName,Balance,AccountCategoryId,AccountSubCategoryId,DebitCredit,AccountTypeId")] GLAccountCard gLAccountCard)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,AccountNo,AccountName,Balance,AccountCategoryId,AccountSubCategoryId,DebitCredit,AccountTypeId")] GLAccountCardViewModel gLAccountCardViewModel)
         {
-            if (id != gLAccountCard.Id)
+            if (id != gLAccountCardViewModel.Id)
             {
                 return NotFound();
             }
@@ -101,12 +143,24 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 try
                 {
+                    var gLAccountCard = new GLAccountCard
+                    {
+                        Id = gLAccountCardViewModel.Id,
+                        AccountName = gLAccountCardViewModel.AccountName,
+                        AccountCategoryId = gLAccountCardViewModel.AccountCategoryId,
+                        AccountSubCategoryId = gLAccountCardViewModel.AccountSubCategoryId,
+                        AccountTypeId = gLAccountCardViewModel.AccountTypeId,
+                        AccountNo = gLAccountCardViewModel.AccountNo,
+                        Balance = gLAccountCardViewModel.Balance,
+                        DebitCredit = gLAccountCardViewModel.DebitCredit
+                    };
+
                     _context.Update(gLAccountCard);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GLAccountCardExists(gLAccountCard.Id))
+                    if (!GLAccountCardExists(gLAccountCardViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -117,7 +171,11 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(gLAccountCard);
+            ViewData["AccountCategoryId"] = new SelectList(_context.AccountCategories, "Id", "Name");
+            ViewData["AccountSubCategoryId"] = new SelectList(_context.AccountSubCategories, "Id", "Name");
+            ViewData["AccountTypeId"] = new SelectList(_context.AccountTypes, "Id", "Name");
+
+            return View(gLAccountCardViewModel);
         }
 
         // GET: GLAccountCards/Delete/5
@@ -129,6 +187,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var gLAccountCard = await _context.GLAccountCards
+                .Include("AccountCategory")
+                .Include("AccountSubCategory")
+                .Include("AccountType")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (gLAccountCard == null)
             {

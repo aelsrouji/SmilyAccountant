@@ -14,11 +14,7 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Required]
         public required string Name { get; set; }
 
-
-        //[ForeignKey("AccountCategory")]
         public Guid AccountCategoryId { get; set; }
-
-        //[BindNever]
         public virtual AccountCategory AccountCategory { get; set; }
 
     }

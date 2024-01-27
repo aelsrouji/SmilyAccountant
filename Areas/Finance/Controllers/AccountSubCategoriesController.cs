@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmilyAccountant.Areas.Finance.Models;
+using SmilyAccountant.Areas.Finance.Models.ViewModels;
 using SmilyAccountant.Data;
 
 namespace SmilyAccountant.Areas.Finance.Controllers
-{ 
+{
     [Area("Finance")]
     public class AccountSubCategoriesController : Controller
     {
