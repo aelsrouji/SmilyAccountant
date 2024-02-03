@@ -19,8 +19,10 @@ namespace SmilyAccountant.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<FAClassCode> FAClassCodes { get; set; }
-        public DbSet<FASubClassCode> FASubClassCodes{ get; set; }
+        public DbSet<FASubClassCode> FASubClassCodes { get; set; }
         public DbSet<FixedAssetCard> FixedAssetCards { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+
 
     }
 }

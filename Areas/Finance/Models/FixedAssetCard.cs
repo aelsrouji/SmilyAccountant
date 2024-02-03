@@ -1,8 +1,11 @@
-﻿namespace SmilyAccountant.Areas.Finance.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SmilyAccountant.Areas.Finance.Models
 {
     public class FixedAssetCard
     {
-        public int Id { get; set; }
+        public Guid FixedAssetCardId { get; set; }
+        
         public required string Description { get; set; }
 
         public Guid FAClassCodeId { get; set; } 
@@ -15,8 +18,9 @@
 
         // todo: add depreciation details
 
-        public virtual ICollection<FAClassCode>? FAClassCodes { get; set; }
-        public virtual ICollection<FASubClassCode>? FASubClassCodes { get; set; }
+        // this will add FixedAssetCardId to both FCClassCodes and FASubClassCodes tables
+        //public virtual ICollection<FAClassCode>? FAClassCodes { get; set; }
+        //public virtual ICollection<FASubClassCode>? FASubClassCodes { get; set; }
 
-    }
+   }
 }

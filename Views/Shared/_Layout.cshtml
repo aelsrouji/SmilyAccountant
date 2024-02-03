@@ -19,37 +19,58 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @* <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Smily</a>
+                        </li> *@
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Smily</a>
+                            <a class="nav-link text-dark" asp-area="Finance" asp-controller="GeneralJournals" asp-action="Index">General Journals</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Finance" asp-controller="GLAccountCards" asp-action="Index">GL Account Cards</a>
-                        </li>
-                                                
+
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">System Administration</a>
-                        
-                    <ul class="dropdown-menu">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Finance" asp-controller="AccountCategories" asp-action="Index">Account Categories</a>
-                        </li>
 
-                        <li class="nav-item">
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="AccountCategories" asp-action="Index">Account Categories</a>
+                                </li>
+
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Finance" asp-controller="AccountSubCategories" asp-action="Index">Account Sub Categories</a>
-                        </li>
-                        <li class="nav-item">
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Finance" asp-controller="AccountTypes" asp-action="Index">Account Types</a>
-                        </li>
-                        </ul>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="Currencies" asp-action="Index">Currencies</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="FixedAssetCards" asp-action="Index">Fixed Asset Cards</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="FAClassCodes" asp-action="Index">Fixed Asset Class Codes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="FASubClassCodes" asp-action="Index">Fixed Asset Sub Class Codes</a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="GLAccountCards" asp-action="Index">GL Account Cards</a>
+                                </li>
+                            </ul>
+
 
                         </li>
-                        
+
+                        @*     <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li> *@
                     </ul>
 
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
+
 
                 </div>
             </div>

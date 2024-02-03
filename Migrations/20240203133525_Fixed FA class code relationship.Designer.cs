@@ -12,15 +12,15 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    [Migration("20240127184052_Adding new models country, Employee, FAClassCode, FASubClassCode, FixedAssetCard, GernalJournal")]
-    partial class AddingnewmodelscountryEmployeeFAClassCodeFASubClassCodeFixedAssetCardGernalJournal
+    [Migration("20240203133525_Fixed FA class code relationship")]
+    partial class FixedFAclasscoderelationship
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("ProductVersion", "7.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -119,6 +119,30 @@ namespace SmilyAccountant.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.Currency", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("GeneralJournalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GeneralJournalId");
+
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.Employee", b =>
@@ -229,16 +253,11 @@ namespace SmilyAccountant.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FixedAssetCardId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FixedAssetCardId");
 
                     b.ToTable("FAClassCodes");
                 });
@@ -256,9 +275,6 @@ namespace SmilyAccountant.Migrations
                     b.Property<Guid>("FAClassCodeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("FixedAssetCardId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -267,18 +283,14 @@ namespace SmilyAccountant.Migrations
 
                     b.HasIndex("FAClassCodeId");
 
-                    b.HasIndex("FixedAssetCardId");
-
                     b.ToTable("FASubClassCodes");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("FixedAssetCardId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -293,10 +305,15 @@ namespace SmilyAccountant.Migrations
                     b.Property<Guid>("FASubClassCodeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("GeneralJournalId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("SerialNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("FixedAssetCardId");
+
+                    b.HasIndex("GeneralJournalId");
 
                     b.ToTable("FixedAssetCards");
                 });
@@ -356,7 +373,7 @@ namespace SmilyAccountant.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CurrencyId")
+                    b.Property<Guid?>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -365,7 +382,7 @@ namespace SmilyAccountant.Migrations
                     b.Property<string>("DocumentNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DocumentType")
+                    b.Property<int?>("DocumentType")
                         .HasColumnType("int");
 
                     b.Property<Guid>("FixedAssetCardId")
@@ -378,6 +395,10 @@ namespace SmilyAccountant.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("FixedAssetCardId");
 
                     b.ToTable("GeneralJournals");
                 });
@@ -393,11 +414,11 @@ namespace SmilyAccountant.Migrations
                     b.Navigation("AccountCategory");
                 });
 
-            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FAClassCode", b =>
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.Currency", b =>
                 {
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", null)
-                        .WithMany("FAClassCodes")
-                        .HasForeignKey("FixedAssetCardId");
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GeneralJournal", null)
+                        .WithMany("Currencies")
+                        .HasForeignKey("GeneralJournalId");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FASubClassCode", b =>
@@ -408,11 +429,14 @@ namespace SmilyAccountant.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", null)
-                        .WithMany("FASubClassCodes")
-                        .HasForeignKey("FixedAssetCardId");
-
                     b.Navigation("FAClassCode");
+                });
+
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", b =>
+                {
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GeneralJournal", null)
+                        .WithMany("FixedAssetCards")
+                        .HasForeignKey("GeneralJournalId");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.GLAccountCard", b =>
@@ -442,6 +466,23 @@ namespace SmilyAccountant.Migrations
                     b.Navigation("AccountType");
                 });
 
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.GeneralJournal", b =>
+                {
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId");
+
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", "FixedAssetCard")
+                        .WithMany()
+                        .HasForeignKey("FixedAssetCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("FixedAssetCard");
+                });
+
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.AccountCategory", b =>
                 {
                     b.Navigation("SubCategories");
@@ -452,11 +493,11 @@ namespace SmilyAccountant.Migrations
                     b.Navigation("FASubClassCodes");
                 });
 
-            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", b =>
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.GeneralJournal", b =>
                 {
-                    b.Navigation("FAClassCodes");
+                    b.Navigation("Currencies");
 
-                    b.Navigation("FASubClassCodes");
+                    b.Navigation("FixedAssetCards");
                 });
 #pragma warning restore 612, 618
         }

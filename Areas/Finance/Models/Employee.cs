@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using SmilyAccountant.Areas.Finance.Models.Enums;
+﻿using SmilyAccountant.Areas.Finance.Models.Enums;
 
 namespace SmilyAccountant.Areas.Finance.Models
 {

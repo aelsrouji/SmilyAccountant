@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,13 +12,15 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240129011243_Fresh new migration")]
+    partial class Freshnewmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.15")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -250,11 +253,16 @@ namespace SmilyAccountant.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("FixedAssetCardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FixedAssetCardId");
 
                     b.ToTable("FAClassCodes");
                 });
@@ -272,6 +280,9 @@ namespace SmilyAccountant.Migrations
                     b.Property<Guid>("FAClassCodeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("FixedAssetCardId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -279,6 +290,8 @@ namespace SmilyAccountant.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FAClassCodeId");
+
+                    b.HasIndex("FixedAssetCardId");
 
                     b.ToTable("FASubClassCodes");
                 });
@@ -418,6 +431,13 @@ namespace SmilyAccountant.Migrations
                         .HasForeignKey("GeneralJournalId");
                 });
 
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FAClassCode", b =>
+                {
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", null)
+                        .WithMany("FAClassCodes")
+                        .HasForeignKey("FixedAssetCardId");
+                });
+
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FASubClassCode", b =>
                 {
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.FAClassCode", "FAClassCode")
@@ -425,6 +445,10 @@ namespace SmilyAccountant.Migrations
                         .HasForeignKey("FAClassCodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", null)
+                        .WithMany("FASubClassCodes")
+                        .HasForeignKey("FixedAssetCardId");
 
                     b.Navigation("FAClassCode");
                 });
@@ -487,6 +511,13 @@ namespace SmilyAccountant.Migrations
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FAClassCode", b =>
                 {
+                    b.Navigation("FASubClassCodes");
+                });
+
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", b =>
+                {
+                    b.Navigation("FAClassCodes");
+
                     b.Navigation("FASubClassCodes");
                 });
 
