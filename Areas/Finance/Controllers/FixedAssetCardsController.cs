@@ -23,9 +23,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // GET: Finance/FixedAssetCards
         public async Task<IActionResult> Index()
         {
-              return _context.FixedAssetCards != null ? 
-                          View(await _context.FixedAssetCards.ToListAsync()) :
-                          Problem("Entity set 'SmilyAccountantContext.FixedAssetCards'  is null.");
+            var smilyAccountantContext = _context.FixedAssetCards.Include(f => f.FAClassCode).Include(f => f.FASubClassCode).Include(f => f.Employee);
+            return View(await smilyAccountantContext.ToListAsync());
         }
 
         // GET: Finance/FixedAssetCards/Details/5
@@ -37,6 +36,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var fixedAssetCard = await _context.FixedAssetCards
+                .Include(f => f.FAClassCode)
+                .Include(f => f.FASubClassCode)
+                .Include(f => f.Employee)
                 .FirstOrDefaultAsync(m => m.FixedAssetCardId == id);
             if (fixedAssetCard == null)
             {
@@ -49,6 +51,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // GET: Finance/FixedAssetCards/Create
         public IActionResult Create()
         {
+            ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name");
+            ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName");
             return View();
         }
 
@@ -59,6 +64,10 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId")] FixedAssetCard fixedAssetCard)
         {
+            ModelState.Remove("FAClassCode");
+            ModelState.Remove("FASubClassCode");
+            ModelState.Remove("Employee");
+
             if (ModelState.IsValid)
             {
                 fixedAssetCard.FixedAssetCardId = Guid.NewGuid();
@@ -66,6 +75,10 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name", fixedAssetCard.FAClassCodeId);
+            ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name", fixedAssetCard.FASubClassCodeId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName", fixedAssetCard.EmployeeId);
+
             return View(fixedAssetCard);
         }
 
@@ -82,6 +95,10 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 return NotFound();
             }
+            ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name", fixedAssetCard.FAClassCodeId);
+            ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name", fixedAssetCard.FASubClassCodeId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName", fixedAssetCard.EmployeeId);
+
             return View(fixedAssetCard);
         }
 
@@ -96,6 +113,10 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 return NotFound();
             }
+
+            ModelState.Remove("FAClassCode");
+            ModelState.Remove("FASubClassCode");
+            ModelState.Remove("Employee");
 
             if (ModelState.IsValid)
             {
@@ -117,6 +138,10 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name", fixedAssetCard.FAClassCodeId);
+            ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name", fixedAssetCard.FASubClassCodeId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName", fixedAssetCard.EmployeeId);
+
             return View(fixedAssetCard);
         }
 
@@ -129,6 +154,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var fixedAssetCard = await _context.FixedAssetCards
+                .Include(f => f.FAClassCode)
+                .Include(f => f.FASubClassCode)
+                .Include(f => f.Employee)
                 .FirstOrDefaultAsync(m => m.FixedAssetCardId == id);
             if (fixedAssetCard == null)
             {

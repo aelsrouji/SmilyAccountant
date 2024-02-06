@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,9 +12,11 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240203185754_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,8 +313,6 @@ namespace SmilyAccountant.Migrations
 
                     b.HasKey("FixedAssetCardId");
 
-                    b.HasIndex("EmployeeId");
-
                     b.HasIndex("FAClassCodeId");
 
                     b.HasIndex("FASubClassCodeId");
@@ -437,12 +438,6 @@ namespace SmilyAccountant.Migrations
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FixedAssetCard", b =>
                 {
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.FAClassCode", "FAClassCode")
                         .WithMany()
                         .HasForeignKey("FAClassCodeId")
@@ -458,8 +453,6 @@ namespace SmilyAccountant.Migrations
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.GeneralJournal", null)
                         .WithMany("FixedAssetCards")
                         .HasForeignKey("GeneralJournalId");
-
-                    b.Navigation("Employee");
 
                     b.Navigation("FAClassCode");
 

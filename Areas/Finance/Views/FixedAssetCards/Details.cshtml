@@ -5,7 +5,6 @@
 }
 
 
-
 <div>
     <h4>Fixed Asset Card</h4>
     <hr />
@@ -17,28 +16,28 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FAClassCodeId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FAClassCodeId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FASubClassCodeId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FASubClassCodeId)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SerialNumber)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SerialNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployeeId)
+            @Html.DisplayNameFor(model => model.Employee.LastName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployeeId)
+            @Html.DisplayFor(model => model.Employee.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FAClassCode.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FAClassCode.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FASubClassCode.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FASubClassCode.Name)
         </dd>
     </dl>
 </div>

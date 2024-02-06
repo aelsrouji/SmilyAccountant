@@ -16,16 +16,16 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FAClassCodeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FASubClassCodeId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.SerialNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FAClassCode.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FASubClassCode.Name)
             </th>
             <th></th>
         </tr>
@@ -37,16 +37,16 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FAClassCodeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FASubClassCodeId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.SerialNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeId)
+                @Html.DisplayFor(modelItem => item.Employee.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FAClassCode.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FASubClassCode.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FixedAssetCardId">Edit</a> |

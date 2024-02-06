@@ -4,6 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
+
 <h4>Create Fixed Asset Card</h4>
 <hr />
 <div class="row">
@@ -17,13 +18,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="FAClassCodeId" class="control-label"></label>
-                <input asp-for="FAClassCodeId" class="form-control" />
-                <span asp-validation-for="FAClassCodeId" class="text-danger"></span>
+                <select asp-for="FAClassCodeId" class ="form-control" asp-items="ViewBag.FAClassCodeId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="FASubClassCodeId" class="control-label"></label>
-                <input asp-for="FASubClassCodeId" class="form-control" />
-                <span asp-validation-for="FASubClassCodeId" class="text-danger"></span>
+                <select asp-for="FASubClassCodeId" class ="form-control" asp-items="ViewBag.FASubClassCodeId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="SerialNumber" class="control-label"></label>
@@ -32,8 +31,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="EmployeeId" class="control-label"></label>
-                <input asp-for="EmployeeId" class="form-control" />
-                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                @* <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select> *@
+                @* <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select> *@
+                @* <span asp-validation-for="EmployeeId" class="text-danger"></span> *@
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
