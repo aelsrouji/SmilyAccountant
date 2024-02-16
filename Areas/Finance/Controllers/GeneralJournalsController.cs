@@ -21,7 +21,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.GeneralJournals != null ? 
-                          View(await _context.GeneralJournals.Include("FixedAssetCards").Include("Currencies").ToListAsync()) :
+                          View(await _context.GeneralJournals.
+                          Include(f => f.FixedAssetCards).Include(c => c.Currencies).ToListAsync()) :
                           Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null.");
         }
 
@@ -33,8 +34,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 return NotFound();
             }
 
-            var generalJournal = await _context.GeneralJournals
-                .Include("FixedAssetCards").Include("Currencies")
+            var generalJournal = await _context.GeneralJournals.
+                Include(f => f.FixedAssetCards).Include(c => c.Currencies)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (generalJournal == null)
             {
@@ -92,6 +93,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 return NotFound();
             }
 
+            ViewData["FixedAssetCards"] = new SelectList(_context.FixedAssetCards, "FixedAssetCardId", "Description");
+            ViewData["Currencies"] = new SelectList(_context.Currencies, "Id", "Name");
+
             var generalJournal = await _context.GeneralJournals.FindAsync(id);
             if (generalJournal == null)
             {
@@ -111,6 +115,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 return NotFound();
             }
+
+            ModelState.Remove("FixedAssetCard");
+            ModelState.Remove("Currency");
 
             if (ModelState.IsValid)
             {
@@ -132,6 +139,10 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["FixedAssetCards"] = new SelectList(_context.FixedAssetCards, "FixedAssetCardId", "Description");
+            ViewData["Currencies"] = new SelectList(_context.Currencies, "Id", "Name");
+
             return View(generalJournal);
         }
 

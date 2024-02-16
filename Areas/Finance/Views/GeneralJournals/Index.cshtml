@@ -20,13 +20,13 @@
                 @Html.DisplayNameFor(model => model.DocumentNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FixedAssetCardId)
+                @Html.DisplayNameFor(model => model.FixedAssetCard.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CurrencyId)
+                @Html.DisplayNameFor(model => model.Currency.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.GeneralPostingType)
@@ -56,13 +56,13 @@
                 @Html.DisplayFor(modelItem => item.DocumentNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FixedAssetCardId)
+                @Html.DisplayFor(modelItem => item.FixedAssetCard.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CurrencyId)
+                @Html.DisplayFor(modelItem => item.Currency.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GeneralPostingType)

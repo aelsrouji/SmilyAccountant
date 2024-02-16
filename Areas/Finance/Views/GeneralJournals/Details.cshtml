@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>GeneralJournal</h4>
+    <h4>General Journal</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -29,10 +28,10 @@
             @Html.DisplayFor(model => model.DocumentNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FixedAssetCardId)
+            @Html.DisplayNameFor(model => model.FixedAssetCard.Description)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FixedAssetCardId)
+            @Html.DisplayFor(model => model.FixedAssetCard.Description)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
@@ -41,10 +40,10 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CurrencyId)
+            @Html.DisplayNameFor(model => model.Currency.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CurrencyId)
+            @Html.DisplayFor(model => model.Currency.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.GeneralPostingType)
