@@ -1,10 +1,13 @@
 ﻿using SmilyAccountant.Areas.Finance.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace SmilyAccountant.Areas.Finance.Models
 {
     public class Employee
     {
         public Guid Id { get; set; }
+
+        [Display(Name = "Employee #")]
         public required string EmployeeNumber { get; set; }
         public required string FirstName { get; set; }
         public string? MiddleName { get; set; }
