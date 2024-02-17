@@ -7,14 +7,26 @@ namespace SmilyAccountant.Areas.Finance.Models
     {
         public Guid Id { get; set; }
 
-        [Display(Name = "Employee #")]
+        [Display(Name = "Employee No")]
         public required string EmployeeNumber { get; set; }
+
+        [Display(Name = "First Name")]
         public required string FirstName { get; set; }
+
+        [Display(Name = "Middle Name")]
         public string? MiddleName { get; set; }
+
+        [Display(Name = "Last Name")]
         public required string LastName { get; set; }
+
+        [Display(Name = "Job title")]
         public string? JobTitle { get; set; }
+
         public string? Initials { get; set; }
+
         public Gender Gender { get; set; }
+
+        [Display(Name = "Company Email")]
         public string? CompanyEmail { get; set; }
         public string? CompanyPhone { get; set; }
         public string? Extension { get; set; }
