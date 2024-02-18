@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,9 +12,11 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240218213412_Update to GeneralJournalController and views")]
+    partial class UpdatetoGeneralJournalControllerandviews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,11 +396,11 @@ namespace SmilyAccountant.Migrations
                     b.Property<int?>("DocumentType")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("GLAccountCardId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("GeneralPostingType")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("GlAccountCardId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("PostingDate")
                         .HasColumnType("datetime2");
@@ -406,7 +409,7 @@ namespace SmilyAccountant.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.HasIndex("GLAccountCardId");
+                    b.HasIndex("GlAccountCardId");
 
                     b.ToTable("GeneralJournals");
                 });
@@ -510,7 +513,7 @@ namespace SmilyAccountant.Migrations
 
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.GLAccountCard", "GLAccountCard")
                         .WithMany()
-                        .HasForeignKey("GLAccountCardId")
+                        .HasForeignKey("GlAccountCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

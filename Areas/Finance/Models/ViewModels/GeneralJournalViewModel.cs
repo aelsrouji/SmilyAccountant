@@ -10,6 +10,7 @@ namespace SmilyAccountant.Areas.Finance.Models.ViewModels
         public string? DocumentNumber { get; set; }
 
         public Guid FixedAssetCardId { get; set; } 
+        public Guid GLAccountCardId { get; set; } 
 
         public string? Description { get; set; }
 

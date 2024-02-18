@@ -10,8 +10,12 @@ namespace SmilyAccountant.Areas.Finance.Models
         public DocumentType? DocumentType { get; set; }
         public string? DocumentNumber { get; set; }
 
-        public required Guid FixedAssetCardId { get; set; } // Called Account Number in General Journal
-        public FixedAssetCard FixedAssetCard { get; set; }
+        //public required Guid FixedAssetCardId { get; set; } // For fixed asset type 
+        //public FixedAssetCard FixedAssetCard { get; set; }
+        
+        public required Guid GLAccountCardId { get; set; } // for gl account type
+        public GLAccountCard GLAccountCard { get; set; }
+
         public string? Description { get; set; }
 
         public Guid? CurrencyId { get; set; }
@@ -25,6 +29,7 @@ namespace SmilyAccountant.Areas.Finance.Models
         public string? Comment { get; set; }
 
         public virtual ICollection<FixedAssetCard>? FixedAssetCards { get; set; }
+        public virtual ICollection<GLAccountCard>? GLAccountCards { get; set; }
         public virtual ICollection<Currency>? Currencies { get; set; }
 
 

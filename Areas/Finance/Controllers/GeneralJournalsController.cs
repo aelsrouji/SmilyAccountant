@@ -21,8 +21,11 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.GeneralJournals != null ? 
-                          View(await _context.GeneralJournals.
-                          Include(f => f.FixedAssetCards).Include(c => c.Currencies).ToListAsync()) :
+                          View(await _context.GeneralJournals
+                          //Include(f => f.FixedAssetCards)
+                          .Include(c => c.Currencies).
+                          Include(f => f.GLAccountCards).ToListAsync())
+                          :
                           Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null.");
         }
 
@@ -35,7 +38,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var generalJournal = await _context.GeneralJournals.
-                Include(f => f.FixedAssetCards).Include(c => c.Currencies)
+                Include(f => f.GLAccountCards)
+                .Include(c => c.Currencies)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (generalJournal == null)
             {
@@ -48,7 +52,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // GET: Finance/GeneralJournals/Create
         public IActionResult Create()
         {
-            ViewData["FixedAssetCards"] = new SelectList(_context.FixedAssetCards, "FixedAssetCardId", "Description");
+            //ViewData["FixedAssetCards"] = new SelectList(_context.FixedAssetCards, "FixedAssetCardId", "Description");
+            ViewData["GLAccountCards"] = new SelectList(_context.GLAccountCards, "Id", "AccountName");
             ViewData["Currencies"] = new SelectList(_context.Currencies, "Id", "Name");
 
             return View();
@@ -59,7 +64,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PostingDate,DocumentType,DocumentNumber,FixedAssetCardId,Description,CurrencyId,GeneralPostingType,Amount,AmountWithTax,Comment")] GeneralJournalViewModel generalJournalViewModel)
+        public async Task<IActionResult> Create([Bind("Id,PostingDate,DocumentType,DocumentNumber,GLAccountCardId,Description,CurrencyId,GeneralPostingType,Amount,AmountWithTax,Comment")] GeneralJournalViewModel generalJournalViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +74,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                     PostingDate = generalJournalViewModel.PostingDate,
                     DocumentType = generalJournalViewModel.DocumentType,
                     DocumentNumber = generalJournalViewModel.DocumentNumber,
-                    FixedAssetCardId = generalJournalViewModel.FixedAssetCardId,
+                    //FixedAssetCardId = generalJournalViewModel.FixedAssetCardId,
+                    GLAccountCardId = generalJournalViewModel.GLAccountCardId,
                     Description = generalJournalViewModel.Description,
                     CurrencyId = generalJournalViewModel.CurrencyId,
                     GeneralPostingType = generalJournalViewModel.GeneralPostingType,
@@ -93,10 +99,12 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 return NotFound();
             }
 
-            ViewData["FixedAssetCards"] = new SelectList(_context.FixedAssetCards, "FixedAssetCardId", "Description");
+            //ViewData["FixedAssetCards"] = new SelectList(_context.FixedAssetCards, "FixedAssetCardId", "Description");
+            ViewData["GLAccountCards"] = new SelectList(_context.GLAccountCards, "Id", "AccountName");
             ViewData["Currencies"] = new SelectList(_context.Currencies, "Id", "Name");
 
             var generalJournal = await _context.GeneralJournals.FindAsync(id);
+
             if (generalJournal == null)
             {
                 return NotFound();
@@ -109,14 +117,15 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,PostingDate,DocumentType,DocumentNumber,FixedAssetCardId,Description,CurrencyId,GeneralPostingType,Amount,AmountWithTax,Comment")] GeneralJournal generalJournal)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,PostingDate,DocumentType,DocumentNumber,GLAccountCardId,Description,CurrencyId,GeneralPostingType,Amount,AmountWithTax,Comment")] GeneralJournal generalJournal)
         {
             if (id != generalJournal.Id)
             {
                 return NotFound();
             }
 
-            ModelState.Remove("FixedAssetCard");
+            //ModelState.Remove("FixedAssetCard");
+            ModelState.Remove("GLAccountCard");
             ModelState.Remove("Currency");
 
             if (ModelState.IsValid)
@@ -140,7 +149,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["FixedAssetCards"] = new SelectList(_context.FixedAssetCards, "FixedAssetCardId", "Description");
+            ViewData["GLAccountCards"] = new SelectList(_context.GLAccountCards, "Id", "AccountName");
             ViewData["Currencies"] = new SelectList(_context.Currencies, "Id", "Name");
 
             return View(generalJournal);
