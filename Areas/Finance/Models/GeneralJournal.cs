@@ -26,7 +26,7 @@ namespace SmilyAccountant.Areas.Finance.Models
         public required Guid GLAccountCardId { get; set; } // for gl account type
 
         [Display(Name = "GL Account Card")]
-        public GLAccountCard GLAccountCard { get; set; }
+        public GLAccountCard? GLAccountCard { get; set; }
 
         public string? Description { get; set; }
 
@@ -34,15 +34,16 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Display(Name = "Currency Id")]
         public Guid? CurrencyId { get; set; }
         
-        public Currency Currency { get; set; }
+        public Currency? Currency { get; set; }
 
 
         [Display(Name = "General Posting Type")]
         public GeneralPostingType GeneralPostingType { get; set; }
 
+        [Range(0.1, double.MaxValue)]
         public decimal Amount { get; set; }
 
-        
+        [Range(0.1, double.MaxValue)]
         [Display(Name = "Amount With Tax")]
         public decimal AmountWithTax { get; set; }
 

@@ -19,7 +19,7 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Display(Name = "Accoutn Category Id")]
         public Guid AccountCategoryId { get; set; }
 
-        public virtual AccountCategory AccountCategory { get; set; }
+        public virtual AccountCategory? AccountCategory { get; set; }
 
     }
 }

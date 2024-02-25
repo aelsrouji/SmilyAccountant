@@ -8,7 +8,7 @@ namespace SmilyAccountant.Areas.Finance.Models
 
 
         [Display(Name = "Account Type Name")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
     }
 }

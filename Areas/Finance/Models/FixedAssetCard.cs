@@ -27,12 +27,12 @@ namespace SmilyAccountant.Areas.Finance.Models
 
 
         [Display(Name = "FA Class Code")]
-        public FAClassCode FAClassCode { get; set; }
+        public FAClassCode? FAClassCode { get; set; }
 
         [Display(Name = "FA Sub Class Code")]
-        public FASubClassCode FASubClassCode { get; set;}
+        public FASubClassCode? FASubClassCode { get; set;}
 
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
 
 
         // todo: add depreciation details

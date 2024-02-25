@@ -8,11 +8,11 @@ namespace SmilyAccountant.Areas.Finance.Models
 
 
         [Display(Name = "Country Name")]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         
         [Display(Name = "Country Code")]
-        public string Code { get; set; }
+        public required string Code { get; set; }
 
     }
 }
