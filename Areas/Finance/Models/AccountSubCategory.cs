@@ -12,9 +12,13 @@ namespace SmilyAccountant.Areas.Finance.Models
         public Guid Id { get; set; }
 
         [Required]
+        [Display(Name = "Account Sub Category Name")]
         public required string Name { get; set; }
 
+
+        [Display(Name = "Accoutn Category Id")]
         public Guid AccountCategoryId { get; set; }
+
         public virtual AccountCategory AccountCategory { get; set; }
 
     }

@@ -10,18 +10,25 @@ namespace SmilyAccountant.Areas.Finance.Models.ViewModels
         [DisplayName("Account Number")]
         public string AccountNo { get; set; }
 
+        
         [DisplayName("Account Name")]
         public string AccountName { get; set; }
+        
         public decimal Balance { get; set; }
 
+        
         [DisplayName("Account Category")]
         public Guid AccountCategoryId { get; set; }
 
+        
         [DisplayName("Account Sub Category")]
         public Guid AccountSubCategoryId { get; set; }
+
+
         [DisplayName("Account Type")]
         public Guid AccountTypeId { get; set; }
 
+        
         [DisplayName("Debit or Credit?")]
         public DebitCreditBoth DebitCredit { get; set; }
 
