@@ -7,8 +7,10 @@ namespace SmilyAccountant.Areas.Finance.Models.ViewModels
     {
         public Guid Id { get; set; }
 
+
         [Display(Name = "Sub Category Name")]
         public required string Name { get; set; }
+
 
         [Display(Name = "Account Category Id")]
         public Guid AccountCategoryId { get; set; }
