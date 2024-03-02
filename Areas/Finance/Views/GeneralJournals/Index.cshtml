@@ -4,10 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
+
 <h4>General Journal</h4>
-<p>
-    <a asp-action="Create">New</a>
-</p>
+
+
+<form asp-action="Create">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-12">
+            <a asp-action="Create" class="btn btn-primary">New</a>
+    
+        <input type="submit" asp-controller="GeneralJournals" value="Post" asp-action="Post" class="btn btn-primary" />
+   </div>
+    </div>
+</form>
+    
+
+
+
 <table class="table">
     <thead>
         <tr>

@@ -196,5 +196,18 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         {
           return (_context.GeneralJournals?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+        [HttpPost, ActionName("Post")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Post()
+        {
+            if (_context.GeneralJournals == null)
+            {
+                return Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null");
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
