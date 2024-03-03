@@ -23,10 +23,18 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Smily</a>
                         </li> *@
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Finance" asp-controller="GeneralJournals" asp-action="Index">General Journals</a>
-                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Finance</a>
 
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="GeneralJournals" asp-action="Index">General Journals</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="GeneralJournals" asp-action="PostedRecords">Posted General Journals</a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">System Administration</a>

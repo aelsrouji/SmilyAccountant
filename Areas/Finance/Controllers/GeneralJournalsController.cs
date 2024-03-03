@@ -29,6 +29,18 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                           Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null.");
         }
 
+        public async Task<IActionResult> PostedRecords()
+        {
+            return _context.GeneralJournals != null ?
+                        View(await _context.GeneralJournals.Where(p => p.IsPosted == true)
+                        //Include(f => f.FixedAssetCards)
+                        .Include(c => c.Currencies).
+                        Include(f => f.GLAccountCards).ToListAsync())
+                        :
+                        Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null.");
+        }
+
+
         // GET: Finance/GeneralJournals/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -213,6 +225,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 item.IsPosted = true;
                 _context.Update(item);
             }
+            //todo: What else need to be done on posting?
 
             await _context.SaveChangesAsync();
 
