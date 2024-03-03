@@ -46,8 +46,10 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Range(0.1, double.MaxValue)]
         [Display(Name = "Amount With Tax")]
         public decimal AmountWithTax { get; set; }
-
         public string? Comment { get; set; }
+
+        public bool IsPosted { get; set; }
+
 
         public virtual ICollection<FixedAssetCard>? FixedAssetCards { get; set; }
         public virtual ICollection<GLAccountCard>? GLAccountCards { get; set; }

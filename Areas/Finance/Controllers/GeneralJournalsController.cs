@@ -21,7 +21,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.GeneralJournals != null ? 
-                          View(await _context.GeneralJournals
+                          View(await _context.GeneralJournals.Where(p => p.IsPosted == false)
                           //Include(f => f.FixedAssetCards)
                           .Include(c => c.Currencies).
                           Include(f => f.GLAccountCards).ToListAsync())
@@ -206,6 +206,15 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 return Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null");
             }
+            var unpostedGJ = _context.GeneralJournals.Where(p => p.IsPosted == false);
+
+            foreach (var item in unpostedGJ)
+            {
+                item.IsPosted = true;
+                _context.Update(item);
+            }
+
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
