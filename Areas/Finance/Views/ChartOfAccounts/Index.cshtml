@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SmilyAccountant.Areas.Finance.Models.ChartOfAccount>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GLAccountCard.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetChange)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetBalanace)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GLAccountCard.AccountName)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetChange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetBalanace)
+            </td>
+            
+            @* <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>
