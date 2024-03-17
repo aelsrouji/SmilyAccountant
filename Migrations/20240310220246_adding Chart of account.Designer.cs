@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,9 +12,11 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240310220246_adding Chart of account")]
+    partial class addingChartofaccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,8 +118,6 @@ namespace SmilyAccountant.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GLAccountCardId");
 
                     b.ToTable("ChartOfAccounts");
                 });
@@ -445,17 +446,6 @@ namespace SmilyAccountant.Migrations
                         .IsRequired();
 
                     b.Navigation("AccountCategory");
-                });
-
-            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.ChartOfAccount", b =>
-                {
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GLAccountCard", "GLAccountCard")
-                        .WithMany()
-                        .HasForeignKey("GLAccountCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GLAccountCard");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.Currency", b =>

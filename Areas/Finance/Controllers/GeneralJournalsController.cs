@@ -218,18 +218,92 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 return Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null");
             }
-            var unpostedGJ = _context.GeneralJournals.Where(p => p.IsPosted == false);
+            var unpostedGJ = _context.GeneralJournals.Where(p => p.IsPosted == false).ToList();
+
+            // initial ChartOfAccount table with new records if not existing
+            foreach (var item in unpostedGJ)
+            {
+                var chartOfAccount = GetChartOfAccountByGLAccountCardId(item.GLAccountCardId).Result;
+                if (chartOfAccount == null)
+                {
+                    _context.ChartOfAccounts.Add(new ChartOfAccount
+                    {
+                        Id = new Guid(),
+                        GLAccountCardId = item.GLAccountCardId,
+                        NetChange = 0,
+                        NetBalanace = 0
+                    });
+                    _context.SaveChangesAsync().Wait();
+                }
+            }
 
             foreach (var item in unpostedGJ)
             {
                 item.IsPosted = true;
                 _context.Update(item);
+
+                // updating Chart of Accounts table
+                // this should be enhanced to reduce updates
+                var chartOfAccount = GetChartOfAccountByGLAccountCardId(item.GLAccountCardId).Result;
+                if (chartOfAccount != null) // it should not be null
+                //{
+                //    _context.ChartOfAccounts.Add(new ChartOfAccount
+                //    {
+                //        Id = new Guid(),
+                //        GLAccountCardId = item.GLAccountCardId,
+                //        NetChange = GetNetChange(item),
+                //        NetBalanace = GetNetBalance(item)//what is the difference between net balance and net change?
+                //    }); 
+                //}
+                //else
+                {
+                    chartOfAccount.NetChange = GetNetChange(item);
+                    chartOfAccount.NetBalanace = GetNetBalance(item);
+                    _context.Update(chartOfAccount);
+                }
+
             }
-            //todo: What else need to be done on posting?
 
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private decimal GetNetBalance(GeneralJournal generalJournal)
+        {
+            var netBalance = 0M;
+            var chartOfAccount = GetChartOfAccountByGLAccountCardId(generalJournal.GLAccountCardId).Result;
+            if (chartOfAccount != null)
+            {
+                netBalance = chartOfAccount.NetBalanace + generalJournal.Amount;
+            }
+            else
+            {
+                netBalance = generalJournal.Amount;
+            }
+            return netBalance;
+
+        }
+
+        private decimal GetNetChange(GeneralJournal generalJournal)
+        {
+            var netChange = 0M;
+            var chartOfAccount = GetChartOfAccountByGLAccountCardId(generalJournal.GLAccountCardId).Result;
+            if (chartOfAccount != null)
+            {
+                netChange = chartOfAccount.NetChange + generalJournal.Amount;
+            }
+            else
+            {
+                netChange = generalJournal.Amount;
+            }
+            return netChange;
+
+        }
+
+        private async Task<ChartOfAccount> GetChartOfAccountByGLAccountCardId(Guid id)
+        {
+            return await _context.ChartOfAccounts.FirstOrDefaultAsync(p => p.GLAccountCardId == id);
         }
     }
 }

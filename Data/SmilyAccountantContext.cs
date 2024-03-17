@@ -22,6 +22,7 @@ namespace SmilyAccountant.Data
         public DbSet<FASubClassCode> FASubClassCodes { get; set; }
         public DbSet<FixedAssetCard> FixedAssetCards { get; set; }
         public DbSet<Currency> Currencies { get; set; }
+        public DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
 
 
     }
