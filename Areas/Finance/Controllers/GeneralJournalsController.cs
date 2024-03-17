@@ -23,8 +23,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
               return _context.GeneralJournals != null ? 
                           View(await _context.GeneralJournals.Where(p => p.IsPosted == false)
                           //Include(f => f.FixedAssetCards)
-                          .Include(c => c.Currencies).
-                          Include(f => f.GLAccountCards).ToListAsync())
+                          .Include(c => c.Currency).
+                          Include(f => f.GLAccountCard).ToListAsync())
                           :
                           Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null.");
         }
@@ -34,8 +34,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             return _context.GeneralJournals != null ?
                         View(await _context.GeneralJournals.Where(p => p.IsPosted == true)
                         //Include(f => f.FixedAssetCards)
-                        .Include(c => c.Currencies).
-                        Include(f => f.GLAccountCards).ToListAsync())
+                        .Include(c => c.Currency)
+                        .Include(f => f.GLAccountCard).ToListAsync())
                         :
                         Problem("Entity set 'SmilyAccountantContext.GeneralJournals'  is null.");
         }
