@@ -13,7 +13,19 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.GLAccountCard.AccountNo)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.GLAccountCard.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GLAccountCard.AccountType.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GLAccountCard.AccountCategory.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GLAccountCard.AccountSubCategory.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NetChange)
@@ -29,8 +41,19 @@
 @foreach (var item in Model) {
         <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.GLAccountCard.AccountNo)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.GLAccountCard.AccountName)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GLAccountCard.AccountType.Name)
+                </td><td>
+                    @Html.DisplayFor(modelItem => item.GLAccountCard.AccountCategory.Name)
+                </td><td>
+                    @Html.DisplayFor(modelItem => item.GLAccountCard.AccountSubCategory.Name)
+                </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.NetChange)
             </td>
