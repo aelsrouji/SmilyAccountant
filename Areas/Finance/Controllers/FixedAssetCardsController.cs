@@ -62,7 +62,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId")] FixedAssetCard fixedAssetCard)
+        public async Task<IActionResult> Create([Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId,DepreciationStartingDate,NoOfDepreciataionYears,DepreciationEndingDate,BookValue")] FixedAssetCard fixedAssetCard)
         {
             ModelState.Remove("FAClassCode");
             ModelState.Remove("FASubClassCode");
@@ -107,7 +107,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId")] FixedAssetCard fixedAssetCard)
+        public async Task<IActionResult> Edit(Guid id, [Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId,DepreciationStartingDate,NoOfDepreciataionYears,DepreciationEndingDate,BookValue")] FixedAssetCard fixedAssetCard)
         {
             if (id != fixedAssetCard.FixedAssetCardId)
             {

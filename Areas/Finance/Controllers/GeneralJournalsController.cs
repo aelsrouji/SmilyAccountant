@@ -271,8 +271,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
 
         private decimal GetNetBalance(GeneralJournal generalJournal)
         {
-            var netBalance = 0M;
             var chartOfAccount = GetChartOfAccountByGLAccountCardId(generalJournal.GLAccountCardId).Result;
+            decimal netBalance;
             if (chartOfAccount != null)
             {
                 netBalance = chartOfAccount.NetBalanace + generalJournal.Amount;
@@ -287,8 +287,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
 
         private decimal GetNetChange(GeneralJournal generalJournal)
         {
-            var netChange = 0M;
             var chartOfAccount = GetChartOfAccountByGLAccountCardId(generalJournal.GLAccountCardId).Result;
+            decimal netChange;
             if (chartOfAccount != null)
             {
                 netChange = chartOfAccount.NetChange + generalJournal.Amount;

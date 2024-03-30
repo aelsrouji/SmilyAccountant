@@ -27,6 +27,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.FASubClassCode.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepreciationStartingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfDepreciataionYears)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepreciationEndingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookValue)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -48,6 +60,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FASubClassCode.Name)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepreciationStartingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoOfDepreciataionYears)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepreciationEndingDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookValue)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FixedAssetCardId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.FixedAssetCardId">Details</a> |
