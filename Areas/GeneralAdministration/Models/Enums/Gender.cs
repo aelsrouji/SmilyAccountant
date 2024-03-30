@@ -1,4 +1,4 @@
-﻿namespace SmilyAccountant.Areas.Finance.Models.Enums
+﻿namespace SmilyAccountant.Areas.GeneralAdministration.Models.Enums
 {
     public enum Gender
     {

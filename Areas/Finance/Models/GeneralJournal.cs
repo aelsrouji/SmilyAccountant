@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.SymbolStore;
 using SmilyAccountant.Areas.Finance.Models.Enums;
+using SmilyAccountant.Areas.GeneralAdministration.Models;
 
 namespace SmilyAccountant.Areas.Finance.Models
 {

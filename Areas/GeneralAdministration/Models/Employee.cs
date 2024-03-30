@@ -1,7 +1,7 @@
-﻿using SmilyAccountant.Areas.Finance.Models.Enums;
+﻿using SmilyAccountant.Areas.GeneralAdministration.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace SmilyAccountant.Areas.Finance.Models
+namespace SmilyAccountant.Areas.GeneralAdministration.Models
 {
     public class Employee
     {
@@ -11,19 +11,19 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Display(Name = "Employee No")]
         public required string EmployeeNumber { get; set; }
 
-        
+
         [Display(Name = "First Name")]
         public required string FirstName { get; set; }
 
-        
+
         [Display(Name = "Middle Name")]
         public string? MiddleName { get; set; }
 
-        
+
         [Display(Name = "Last Name")]
         public required string LastName { get; set; }
 
-        
+
         [Display(Name = "Job title")]
         public string? JobTitle { get; set; }
 
@@ -34,10 +34,10 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Display(Name = "Company Email")]
         public string? CompanyEmail { get; set; }
 
-        
+
         [Display(Name = "Company Phone")]
         public string? CompanyPhone { get; set; }
-        
+
         public string? Extension { get; set; }
 
 
@@ -50,10 +50,10 @@ namespace SmilyAccountant.Areas.Finance.Models
 
         public string? Address { get; set; }
 
-        
+
         [Display(Name = "Address 2")]
         public string? Address2 { get; set; }
-        
+
         public string? City { get; set; }
 
 
@@ -78,7 +78,7 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Display(Name = "Invoice Date")]
         public DateTime InactiveDate { get; set; }
 
-        
+
         [Display(Name = "Termination Date")]
         public DateTime TerminationDate { get; set; }
 
@@ -97,7 +97,7 @@ namespace SmilyAccountant.Areas.Finance.Models
 
         [Display(Name = "Bank Account Number")]
         public string? BankAccountNumber { get; set; }
-        
+
         public string? IBAN { get; set; }
 
         [Display(Name = "Swift Code")]

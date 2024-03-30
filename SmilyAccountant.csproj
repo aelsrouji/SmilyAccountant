@@ -9,6 +9,8 @@
   <ItemGroup>
     <Folder Include="Areas\Finance\Data\" />
     <Folder Include="Areas\Finance\Views\Shared\" />
+    <Folder Include="Areas\GeneralAdministration\Data\" />
+    <Folder Include="Areas\GeneralAdministration\Models\ViewModels\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
@@ -23,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
   </ItemGroup>
 
 </Project>

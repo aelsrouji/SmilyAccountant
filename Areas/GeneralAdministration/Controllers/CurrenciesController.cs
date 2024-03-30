@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmilyAccountant.Areas.Finance.Models;
+using SmilyAccountant.Areas.GeneralAdministration.Models;
 using SmilyAccountant.Data;
 
-namespace SmilyAccountant.Areas.Finance.Controllers
+namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
 {
-    [Area("Finance")]
+    [Area("GeneralAdministration")]
     public class CurrenciesController : Controller
     {
         private readonly SmilyAccountantContext _context;
@@ -23,9 +18,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // GET: Finance/Currencies
         public async Task<IActionResult> Index()
         {
-              return _context.Currencies != null ? 
-                          View(await _context.Currencies.ToListAsync()) :
-                          Problem("Entity set 'SmilyAccountantContext.Currencies'  is null.");
+            return _context.Currencies != null ?
+                        View(await _context.Currencies.ToListAsync()) :
+                        Problem("Entity set 'SmilyAccountantContext.Currencies'  is null.");
         }
 
         // GET: Finance/Currencies/Details/5
@@ -152,14 +147,14 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 _context.Currencies.Remove(currency);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CurrencyExists(Guid id)
         {
-          return (_context.Currencies?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Currencies?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

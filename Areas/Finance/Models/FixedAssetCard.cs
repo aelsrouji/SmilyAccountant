@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SmilyAccountant.Areas.GeneralAdministration.Models;
 
 namespace SmilyAccountant.Areas.Finance.Models
 {

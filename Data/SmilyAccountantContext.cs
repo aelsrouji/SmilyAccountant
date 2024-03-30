@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmilyAccountant.Areas.Finance.Models;
+using SmilyAccountant.Areas.GeneralAdministration.Models;
 
 namespace SmilyAccountant.Data
 {

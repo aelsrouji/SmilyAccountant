@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmilyAccountant.Areas.Finance.Models;
+using SmilyAccountant.Areas.GeneralAdministration.Models;
 using SmilyAccountant.Data;
 
-namespace SmilyAccountant.Areas.Finance.Controllers
+namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
 {
-    [Area("Finance")]
+    [Area("GeneralAdministration")]
     public class EmployeesController : Controller
     {
         private readonly SmilyAccountantContext _context;
@@ -23,9 +18,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // GET: Finance/Employees
         public async Task<IActionResult> Index()
         {
-              return _context.Employees != null ? 
-                          View(await _context.Employees.ToListAsync()) :
-                          Problem("Entity set 'SmilyAccountantContext.Employees'  is null.");
+            return _context.Employees != null ?
+                        View(await _context.Employees.ToListAsync()) :
+                        Problem("Entity set 'SmilyAccountantContext.Employees'  is null.");
         }
 
         // GET: Finance/Employees/Details/5
@@ -152,14 +147,14 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             {
                 _context.Employees.Remove(employee);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EmployeeExists(Guid id)
         {
-          return (_context.Employees?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Employees?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

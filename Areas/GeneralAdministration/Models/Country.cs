@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SmilyAccountant.Areas.Finance.Models
+namespace SmilyAccountant.Areas.GeneralAdministration.Models
 {
     public class Country
     {
@@ -10,7 +10,7 @@ namespace SmilyAccountant.Areas.Finance.Models
         [Display(Name = "Country Name")]
         public required string Name { get; set; }
 
-        
+
         [Display(Name = "Country Code")]
         public required string Code { get; set; }
 
