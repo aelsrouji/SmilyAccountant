@@ -1,0 +1,121 @@
+﻿@model SmilyAccountant.Areas.GeneralAdministration.Models.City
+@using System.Text.Json;
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Edit City</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                <select asp-for="CountryId" id="CountryList" class="form-control" asp-items="ViewBag.CountryID" onchange="getStates()"></select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StateId" class="control-label"></label>
+                <select asp-for="StateId" class="form-control" id="StateList" asp-items="@(new SelectList(string.Empty,"Id","Name"))">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" checked/> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedBy" class="control-label"></label>
+                <input asp-for="ModifiedBy" class="form-control" />
+                <span asp-validation-for="ModifiedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedDate" class="control-label"></label>
+                <input asp-for="UpdatedDate" class="form-control" />
+                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+            </div>
+@*             <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.CountryId"></select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StateId" class="control-label"></label>
+                <select asp-for="StateId" class="form-control" asp-items="ViewBag.StateId"></select>
+                <span asp-validation-for="StateId" class="text-danger"></span>
+            </div>
+ *@            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+  
+        function getStates() {
+            var states = document.getElementById("StateList");
+            var countries = document.getElementById("CountryList");
+            var stateId = @Html.Raw(JsonSerializer.Serialize(Model.StateId));
+            var items = '';
+
+            $.ajax({
+                url: '@Url.Action("GetStatesByCountry", "Cities")',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'JSON',
+                data: { id: countries.value },
+                success(data) {
+                    $.each(data, function (i, state) {
+                        if (stateId == state.value) {
+                            items += "<option value='" + state.value + "' selected>" + state.text + "</option>";
+                        }
+                        else {
+                            items += "<option value='" + state.value + "'>" + state.text + "</option>";
+                        }
+                    }
+                    );
+                    states.innerHTML = items;
+                    
+                },
+                error(response) {
+                    console.log(response)
+                }
+            });
+        
+        }
+
+        window.onload = getStates();
+
+    </script>
+    }
