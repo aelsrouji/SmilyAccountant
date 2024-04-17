@@ -26,5 +26,9 @@ namespace SmilyAccountant.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
+
+
     }
 }
