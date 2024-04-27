@@ -23,7 +23,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // GET: Finance/FixedAssetCards
         public async Task<IActionResult> Index()
         {
-            var smilyAccountantContext = _context.FixedAssetCards.Include(f => f.FAClassCode).Include(f => f.FASubClassCode).Include(f => f.Employee);
+            var smilyAccountantContext = _context.FixedAssetCards.Include(f => f.FAClassCode)
+                .Include(f => f.FASubClassCode).Include(f => f.Employee).Include(f => f.Vendor).Include(f => f.MaintenanceVendor);
             return View(await smilyAccountantContext.ToListAsync());
         }
 
@@ -39,7 +40,10 @@ namespace SmilyAccountant.Areas.Finance.Controllers
                 .Include(f => f.FAClassCode)
                 .Include(f => f.FASubClassCode)
                 .Include(f => f.Employee)
+                .Include(f=> f.Vendor)
+                .Include(f => f.MaintenanceVendor)
                 .FirstOrDefaultAsync(m => m.FixedAssetCardId == id);
+
             if (fixedAssetCard == null)
             {
                 return NotFound();
@@ -54,6 +58,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name");
             ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name");
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName");
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
+            ViewData["MaintenanceVendorId"] = new SelectList(_context.Vendors, "Id", "Name");
             return View();
         }
 
@@ -62,11 +68,13 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId,DepreciationStartingDate,NoOfDepreciataionYears,DepreciationEndingDate,BookValue")] FixedAssetCard fixedAssetCard)
+        public async Task<IActionResult> Create([Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId,DepreciationStartingDate,NoOfDepreciataionYears,DepreciationEndingDate,BookValue,VendorId,MaintenanceVendorId,UnderMaintenance,NextServiceDate,WarrantyDate,Insured")] FixedAssetCard fixedAssetCard)
         {
             ModelState.Remove("FAClassCode");
             ModelState.Remove("FASubClassCode");
             ModelState.Remove("Employee");
+            ModelState.Remove("Vendor");
+            ModelState.Remove("MaintenanceVendor");
 
             if (ModelState.IsValid)
             {
@@ -78,6 +86,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name", fixedAssetCard.FAClassCodeId);
             ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name", fixedAssetCard.FASubClassCodeId);
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName", fixedAssetCard.EmployeeId);
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name", fixedAssetCard.VendorId);
+            ViewData["MaintenanceVendorId"] = new SelectList(_context.Vendors, "Id", "Name", fixedAssetCard.MaintenanceVendorId);
 
             return View(fixedAssetCard);
         }
@@ -98,6 +108,9 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name", fixedAssetCard.FAClassCodeId);
             ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name", fixedAssetCard.FASubClassCodeId);
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName", fixedAssetCard.EmployeeId);
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name", fixedAssetCard.VendorId);
+            ViewData["MaintenanceVendorId"] = new SelectList(_context.Vendors, "Id", "Name", fixedAssetCard.MaintenanceVendorId);
+
 
             return View(fixedAssetCard);
         }
@@ -107,7 +120,7 @@ namespace SmilyAccountant.Areas.Finance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId,DepreciationStartingDate,NoOfDepreciataionYears,DepreciationEndingDate,BookValue")] FixedAssetCard fixedAssetCard)
+        public async Task<IActionResult> Edit(Guid id, [Bind("FixedAssetCardId,Description,FAClassCodeId,FASubClassCodeId,SerialNumber,EmployeeId,DepreciationStartingDate,NoOfDepreciataionYears,DepreciationEndingDate,BookValue,VendorId,MaintenanceVendorId,UnderMaintenance,NextServiceDate,WarrantyDate,Insured")] FixedAssetCard fixedAssetCard)
         {
             if (id != fixedAssetCard.FixedAssetCardId)
             {
@@ -117,6 +130,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             ModelState.Remove("FAClassCode");
             ModelState.Remove("FASubClassCode");
             ModelState.Remove("Employee");
+            ModelState.Remove("Vendor");
+            ModelState.Remove("MaintenanceVendor");
 
             if (ModelState.IsValid)
             {
@@ -141,6 +156,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             ViewData["FAClassCodeId"] = new SelectList(_context.FAClassCodes, "Id", "Name", fixedAssetCard.FAClassCodeId);
             ViewData["FASubClassCodeId"] = new SelectList(_context.FASubClassCodes, "Id", "Name", fixedAssetCard.FASubClassCodeId);
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "LastName", fixedAssetCard.EmployeeId);
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name", fixedAssetCard.VendorId);
+            ViewData["MaintenanceVendorId"] = new SelectList(_context.Vendors, "Id", "Name", fixedAssetCard.MaintenanceVendorId);
 
             return View(fixedAssetCard);
         }

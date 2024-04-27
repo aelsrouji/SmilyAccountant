@@ -51,14 +51,26 @@ namespace SmilyAccountant.Areas.Finance.Models
         public decimal BookValue { get; set; } = 0; // todo: calculate it - Add depreciation book?!
 
         //Maintenance
-        //public Guid VendorId { get; set; }
-        //public Vendor Vendor { get; set; } // todo: Add Vendor
-        //public Guid MaintenanceVendorId { get; set; }
-        //public Vendor MaintenanceVendor { get; set; } // todo: Add Vendor
-        //public bool UnderMaintenance { get; set; }
-        //public DateTime NextServiceDate { get; set; }
-        //public DateTime WarrantyDate { get; set; }
-        //public bool Insured { get; set; }
+        [Display(Name = "Vendor")]
+        public Guid VendorId { get; set; }
+        public Vendor? Vendor { get; set; }
+
+        [Display(Name = "Maintenance Vendor")]
+        public Guid MaintenanceVendorId { get; set; }
+        public Vendor? MaintenanceVendor { get; set; }
+
+        [Display(Name = "Under Maintenance?")]
+        public bool UnderMaintenance { get; set; }
+
+        [Display(Name = "Next Service Date")]
+        public DateTime NextServiceDate { get; set; }
+
+        [Display(Name = "Warranty Date")]
+        public DateTime WarrantyDate { get; set; }
+
+        
+        [Display(Name = "Insured?")]
+        public bool Insured { get; set; }
 
     }
 }

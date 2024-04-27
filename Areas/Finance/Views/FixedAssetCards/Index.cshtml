@@ -39,7 +39,26 @@
             <th>
                 @Html.DisplayNameFor(model => model.BookValue)
             </th>
-            <th></th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.VendorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaintenanceVendorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnderMaintenance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NextServiceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WarrantyDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Insured)
+            </th>
+
         </tr>
     </thead>
     <tbody>
@@ -72,7 +91,26 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.BookValue)
                 </td>
-            <td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendor.Name)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MaintenanceVendor.Name)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.UnderMaintenance)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.NextServiceDate)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.WarrantyDate)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Insured)
+                </td>
+                <td>
                 <a asp-action="Edit" asp-route-id="@item.FixedAssetCardId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.FixedAssetCardId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.FixedAssetCardId">Delete</a>
