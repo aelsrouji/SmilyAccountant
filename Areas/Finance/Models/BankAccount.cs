@@ -6,7 +6,7 @@ namespace SmilyAccountant.Areas.Finance.Models
     {
         public Guid Id { get; set; }
 
-        [Display(Name = "Bank Account Number")]
+        [Display(Name = "Bank Account No")]
         public required string No { get; set; }
 
         
