@@ -1,0 +1,59 @@
+﻿@model SmilyAccountant.Areas.Finance.Models.BudgetDetails
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<h4>Edit Budget Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="BudgetId" class="control-label" >Budget Name</label>
+                <select asp-for="BudgetId" class="form-control" asp-items="ViewBag.BudgetId" disabled></select>
+                <span asp-validation-for="BudgetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GLAccountCardId" class="control-label">GL Account Card</label>
+                <select asp-for="GLAccountCardId" class="form-control" asp-items="ViewBag.GLAccountCardId" disabled></select>
+                <span asp-validation-for="GLAccountCardId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BudgetMonth" class="control-label"></label>
+                <input asp-for="BudgetMonth" class="form-control" disabled />
+                <span asp-validation-for="BudgetMonth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BudgetYear" class="control-label"></label>
+                <input asp-for="BudgetYear" class="form-control" disabled/>
+                <span asp-validation-for="BudgetYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BudgetedAmount" class="control-label"></label>
+                <input asp-for="BudgetedAmount" class="form-control" />
+                <span asp-validation-for="BudgetedAmount" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="TotalBudgetedAmount" class="control-label"></label>
+                <input asp-for="TotalBudgetedAmount" class="form-control" />
+                <span asp-validation-for="TotalBudgetedAmount" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@* <div>
+    <a asp-action="Index">Back to List</a>
+</div>
+ *@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

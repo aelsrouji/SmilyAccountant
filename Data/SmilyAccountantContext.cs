@@ -28,7 +28,8 @@ namespace SmilyAccountant.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
-
         public DbSet<BankDeposit> BankDeposits { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<BudgetDetails> BudgetsDetails { get; set; }
     }
 }

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SmilyAccountant.Areas.Finance.Models.BudgetDetails>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>G/L Budget</h4>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<h4>
+    
+        @Html.DisplayNameFor(model => model.Budget.Name): @Html.DisplayFor(model => model.First().Budget.Name)
+</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GLAccountCard.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BudgetMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BudgetYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BudgetedAmount)
+            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.TotalBudgetedAmount)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.GLAccountCard.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BudgetMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BudgetYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BudgetedAmount)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.TotalBudgetedAmount)
+            </td> *@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                @* <a asp-action="Details" asp-route-id="@item.Id">Details</a>  *@
+                @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
