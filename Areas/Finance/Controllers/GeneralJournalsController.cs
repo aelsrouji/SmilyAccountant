@@ -50,8 +50,8 @@ namespace SmilyAccountant.Areas.Finance.Controllers
             }
 
             var generalJournal = await _context.GeneralJournals.
-                Include(f => f.GLAccountCards)
-                .Include(c => c.Currencies)
+                Include(f => f.GLAccountCard)
+                .Include(c => c.Currency)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (generalJournal == null)
             {

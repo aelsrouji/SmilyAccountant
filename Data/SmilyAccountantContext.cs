@@ -31,5 +31,8 @@ namespace SmilyAccountant.Data
         public DbSet<BankDeposit> BankDeposits { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<BudgetDetails> BudgetsDetails { get; set; }
+
+        public DbSet<ExchangeRate> ExchangeRates { get; set; }
+
     }
 }

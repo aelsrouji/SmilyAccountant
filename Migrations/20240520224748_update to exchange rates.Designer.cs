@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,9 +12,11 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240520224748_update to exchange rates")]
+    partial class updatetoexchangerates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,6 +265,9 @@ namespace SmilyAccountant.Migrations
                     b.Property<Guid>("FASubClassCodeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("GeneralJournalId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Insured")
                         .HasColumnType("bit");
 
@@ -293,6 +299,8 @@ namespace SmilyAccountant.Migrations
                     b.HasIndex("FAClassCodeId");
 
                     b.HasIndex("FASubClassCodeId");
+
+                    b.HasIndex("GeneralJournalId");
 
                     b.HasIndex("MaintenanceVendorId");
 
@@ -330,6 +338,9 @@ namespace SmilyAccountant.Migrations
                     b.Property<int>("DebitCredit")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("GeneralJournalId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountCategoryId");
@@ -337,6 +348,8 @@ namespace SmilyAccountant.Migrations
                     b.HasIndex("AccountSubCategoryId");
 
                     b.HasIndex("AccountTypeId");
+
+                    b.HasIndex("GeneralJournalId");
 
                     b.ToTable("GLAccountCards");
                 });
@@ -501,11 +514,16 @@ namespace SmilyAccountant.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("GeneralJournalId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GeneralJournalId");
 
                     b.ToTable("Currencies");
                 });
@@ -838,6 +856,10 @@ namespace SmilyAccountant.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GeneralJournal", null)
+                        .WithMany("FixedAssetCards")
+                        .HasForeignKey("GeneralJournalId");
+
                     b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.Vendor", "MaintenanceVendor")
                         .WithMany()
                         .HasForeignKey("MaintenanceVendorId")
@@ -881,6 +903,10 @@ namespace SmilyAccountant.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GeneralJournal", null)
+                        .WithMany("GLAccountCards")
+                        .HasForeignKey("GeneralJournalId");
+
                     b.Navigation("AccountCategory");
 
                     b.Navigation("AccountSubCategory");
@@ -922,6 +948,13 @@ namespace SmilyAccountant.Migrations
                     b.Navigation("Country");
 
                     b.Navigation("State");
+                });
+
+            modelBuilder.Entity("SmilyAccountant.Areas.GeneralAdministration.Models.Currency", b =>
+                {
+                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GeneralJournal", null)
+                        .WithMany("Currencies")
+                        .HasForeignKey("GeneralJournalId");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.GeneralAdministration.Models.ExchangeRate", b =>
@@ -997,6 +1030,15 @@ namespace SmilyAccountant.Migrations
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FAClassCode", b =>
                 {
                     b.Navigation("FASubClassCodes");
+                });
+
+            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.GeneralJournal", b =>
+                {
+                    b.Navigation("Currencies");
+
+                    b.Navigation("FixedAssetCards");
+
+                    b.Navigation("GLAccountCards");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.GeneralAdministration.Models.Country", b =>

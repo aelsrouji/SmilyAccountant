@@ -52,9 +52,9 @@ namespace SmilyAccountant.Areas.Finance.Models
         public bool IsPosted { get; set; }
 
 
-        public virtual ICollection<FixedAssetCard>? FixedAssetCards { get; set; }
-        public virtual ICollection<GLAccountCard>? GLAccountCards { get; set; }
-        public virtual ICollection<Currency>? Currencies { get; set; }
+        //public virtual ICollection<FixedAssetCard>? FixedAssetCards { get; set; }
+        //public virtual ICollection<GLAccountCard>? GLAccountCards { get; set; }
+        //public virtual ICollection<Currency>? Currencies { get; set; }
 
 
     }

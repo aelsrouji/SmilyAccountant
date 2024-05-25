@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SmilyAccountant.Areas.GeneralAdministration.Models.ExchangeRate>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Exchange Rates</h4>
+
+<p>
+    <a asp-action="Create">New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FromCurrencyId)
+            </th>
+<th>
+                @Html.DisplayNameFor(model => model.ToCurrencyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExchangeRateValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExchangeRateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromCurrency.Name)
+            </td>
+ <td>
+                @Html.DisplayFor(modelItem => item.ToCurrency.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExchangeRateValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExchangeRateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
