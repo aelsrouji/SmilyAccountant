@@ -1,0 +1,215 @@
+﻿@model IEnumerable<SmilyAccountant.Areas.Sales.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Customers</h4>
+
+<p>
+    <a asp-action="Create">New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balanace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BalanaceAsVendor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesPersonId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalSalesFiscalYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Costs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfitPercentage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastDateModified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobilePhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomePage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VatRegistrationNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CopySellToAddrToQte)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxLiable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxAreaCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxIdentificationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxExcemptionNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeneralBusPostingGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerPostingGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerPriceGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerDiscGroup)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balanace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BalanaceAsVendor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesPerson.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSalesFiscalYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Costs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfitPercentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastDateModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomePage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VatRegistrationNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CopySellToAddrToQte)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxLiable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxAreaCode.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxIdentificationType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxExcemptionNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GeneralBusPostingGroup.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPostingGroup.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPriceGroup.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerDiscGroup.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

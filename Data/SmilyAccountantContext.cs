@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmilyAccountant.Areas.Finance.Models;
 using SmilyAccountant.Areas.GeneralAdministration.Models;
+using SmilyAccountant.Areas.Sales.Models;
+using System.Data;
 
 namespace SmilyAccountant.Data
 {
@@ -34,5 +36,15 @@ namespace SmilyAccountant.Data
 
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
 
-    }
+        public DbSet<TaxAreaCode> TaxAreaCodes { get; set; }
+
+        public DbSet<GeneralBusPostingGroup> GeneralBusPostingGroups { get; set; }
+        public DbSet<CustomerPostingGroup> CustomerPostingGroups { get; set; }
+
+        public DbSet<CustomerPriceGroup> CustomerPriceGroups { get; set; }
+
+        public DbSet<CustomerDiscGroup> CustomerDiscountGroups { get; set; }
+
+        public DbSet<Customer> Customers { get; set; }
+    }   
 }

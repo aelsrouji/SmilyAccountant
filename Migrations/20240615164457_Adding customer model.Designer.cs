@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,9 +12,11 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240615164457_Adding customer model")]
+    partial class Addingcustomermodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -932,7 +935,7 @@ namespace SmilyAccountant.Migrations
                     b.Property<decimal>("ProfitPercentage")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("SalesPersonId")
+                    b.Property<Guid>("SalesPersonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("StateId")
@@ -958,10 +961,6 @@ namespace SmilyAccountant.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
-
                     b.HasIndex("CustomerDiscGroupId");
 
                     b.HasIndex("CustomerPostingGroupId");
@@ -969,10 +968,6 @@ namespace SmilyAccountant.Migrations
                     b.HasIndex("CustomerPriceGroupId");
 
                     b.HasIndex("GeneralBusPostingGroupId");
-
-                    b.HasIndex("SalesPersonId");
-
-                    b.HasIndex("StateId");
 
                     b.HasIndex("TaxAreaCodeId");
 
@@ -1226,14 +1221,6 @@ namespace SmilyAccountant.Migrations
 
             modelBuilder.Entity("SmilyAccountant.Areas.Sales.Models.Customer", b =>
                 {
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId");
-
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.CustomerDiscGroup", "CustomerDiscGroup")
                         .WithMany()
                         .HasForeignKey("CustomerDiscGroupId");
@@ -1250,21 +1237,9 @@ namespace SmilyAccountant.Migrations
                         .WithMany()
                         .HasForeignKey("GeneralBusPostingGroupId");
 
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.Employee", "SalesPerson")
-                        .WithMany()
-                        .HasForeignKey("SalesPersonId");
-
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
-
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.TaxAreaCode", "TaxAreaCode")
                         .WithMany()
                         .HasForeignKey("TaxAreaCodeId");
-
-                    b.Navigation("City");
-
-                    b.Navigation("Country");
 
                     b.Navigation("CustomerDiscGroup");
 
@@ -1273,10 +1248,6 @@ namespace SmilyAccountant.Migrations
                     b.Navigation("CustomerPriceGroup");
 
                     b.Navigation("GeneralBusPostingGroup");
-
-                    b.Navigation("SalesPerson");
-
-                    b.Navigation("State");
 
                     b.Navigation("TaxAreaCode");
                 });

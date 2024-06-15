@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmilyAccountant.Data;
 
@@ -11,9 +12,11 @@ using SmilyAccountant.Data;
 namespace SmilyAccountant.Migrations
 {
     [DbContext(typeof(SmilyAccountantContext))]
-    partial class SmilyAccountantContextModelSnapshot : ModelSnapshot
+    [Migration("20240608181427_Customer posting groups")]
+    partial class Customerpostinggroups
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,25 +194,6 @@ namespace SmilyAccountant.Migrations
                     b.ToTable("ChartOfAccounts");
                 });
 
-            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.CustomerDiscGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CustomerDiscountGroups");
-                });
-
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.CustomerPostingGroup", b =>
                 {
                     b.Property<Guid>("Id")
@@ -227,25 +211,6 @@ namespace SmilyAccountant.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CustomerPostingGroups");
-                });
-
-            modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.CustomerPriceGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CustomerPriceGroups");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.FAClassCode", b =>
@@ -855,130 +820,6 @@ namespace SmilyAccountant.Migrations
                     b.ToTable("Vendors");
                 });
 
-            modelBuilder.Entity("SmilyAccountant.Areas.Sales.Models.Customer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Address2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Balanace")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("BalanaceAsVendor")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("CityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CopySellToAddrToQte")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Costs")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("CountryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("CreditLimit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("CustomerDiscGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CustomerPostingGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CustomerPriceGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("GeneralBusPostingGroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("HomePage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastDateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MobilePhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Profit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("ProfitPercentage")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("SalesPersonId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("StateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TaxAreaCodeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TaxExcemptionNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TaxIdentificationType")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("TaxLiable")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("TotalSalesFiscalYear")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("VatRegistrationNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("CustomerDiscGroupId");
-
-                    b.HasIndex("CustomerPostingGroupId");
-
-                    b.HasIndex("CustomerPriceGroupId");
-
-                    b.HasIndex("GeneralBusPostingGroupId");
-
-                    b.HasIndex("SalesPersonId");
-
-                    b.HasIndex("StateId");
-
-                    b.HasIndex("TaxAreaCodeId");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.AccountSubCategory", b =>
                 {
                     b.HasOne("SmilyAccountant.Areas.Finance.Models.AccountCategory", "AccountCategory")
@@ -1222,63 +1063,6 @@ namespace SmilyAccountant.Migrations
                     b.Navigation("PrimaryContact");
 
                     b.Navigation("SecondaryContact");
-                });
-
-            modelBuilder.Entity("SmilyAccountant.Areas.Sales.Models.Customer", b =>
-                {
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId");
-
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.CustomerDiscGroup", "CustomerDiscGroup")
-                        .WithMany()
-                        .HasForeignKey("CustomerDiscGroupId");
-
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.CustomerPostingGroup", "CustomerPostingGroup")
-                        .WithMany()
-                        .HasForeignKey("CustomerPostingGroupId");
-
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.CustomerPriceGroup", "CustomerPriceGroup")
-                        .WithMany()
-                        .HasForeignKey("CustomerPriceGroupId");
-
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.GeneralBusPostingGroup", "GeneralBusPostingGroup")
-                        .WithMany()
-                        .HasForeignKey("GeneralBusPostingGroupId");
-
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.Employee", "SalesPerson")
-                        .WithMany()
-                        .HasForeignKey("SalesPersonId");
-
-                    b.HasOne("SmilyAccountant.Areas.GeneralAdministration.Models.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
-
-                    b.HasOne("SmilyAccountant.Areas.Finance.Models.TaxAreaCode", "TaxAreaCode")
-                        .WithMany()
-                        .HasForeignKey("TaxAreaCodeId");
-
-                    b.Navigation("City");
-
-                    b.Navigation("Country");
-
-                    b.Navigation("CustomerDiscGroup");
-
-                    b.Navigation("CustomerPostingGroup");
-
-                    b.Navigation("CustomerPriceGroup");
-
-                    b.Navigation("GeneralBusPostingGroup");
-
-                    b.Navigation("SalesPerson");
-
-                    b.Navigation("State");
-
-                    b.Navigation("TaxAreaCode");
                 });
 
             modelBuilder.Entity("SmilyAccountant.Areas.Finance.Models.AccountCategory", b =>

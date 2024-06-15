@@ -1,5 +1,6 @@
 ﻿using SmilyAccountant.Areas.GeneralAdministration.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmilyAccountant.Areas.GeneralAdministration.Models
 {
@@ -23,6 +24,9 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Models
         [Display(Name = "Last Name")]
         public required string LastName { get; set; }
 
+        [NotMapped]
+        [Display(Name = "Full Name")]
+        public string FullName { get { return FirstName + " " + LastName; } }
 
         [Display(Name = "Job title")]
         public string? JobTitle { get; set; }

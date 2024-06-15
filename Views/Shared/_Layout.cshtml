@@ -66,6 +66,18 @@
                                 </li>
 
                                 <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="CustomerDiscGroups" asp-action="Index">Customer Discount Groups</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="CustomerPostingGroups" asp-action="Index">Customer Posting Groups</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="CustomerPriceGroups" asp-action="Index">Customer Price Groups</a>
+                                </li>
+
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Finance" asp-controller="FixedAssetCards" asp-action="Index">Fixed Asset Cards</a>
                                 </li>
                                 <li class="nav-item">
@@ -77,7 +89,14 @@
 
 
                                 <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="GeneralBusPostingGroups" asp-action="Index">General Bus. Posting Groups</a>
+                                </li>
+                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Finance" asp-controller="GLAccountCards" asp-action="Index">GL Account Cards</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Finance" asp-controller="TaxAreaCodes" asp-action="Index">Tax Area Codes</a>
                                 </li>
                             </ul>
 
@@ -120,7 +139,20 @@
                             </ul>
                         </li>
 
-                        @*     <li class="nav-item">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Sales</a>
+
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Sales" asp-controller="Customers" asp-action="Index">Customers</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                                @*     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> *@
                     </ul>
