@@ -15,6 +15,11 @@
         <form asp-action="Create">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <h5>General</h5>
+                <hr/>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -114,6 +119,26 @@
                     </div>
                 </div>
                 <div class="col-md-4">
+                    @* <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div> *@
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-bottom:40px">
+                </div>
+            </div>
+
+            <div class="row">
+                <h5>Address</h5>
+                <hr />
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
                     <div class="form-group">
                         <label asp-for="Address" class="control-label"></label>
                         <input asp-for="Address" class="form-control" />
@@ -207,6 +232,25 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col" style="padding-bottom:40px">
+                </div>
+            </div>
+
+            <div class="row">
+                <h5>Invoicing</h5>
+                <hr />
+            </div>
+
+            <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="VatRegistrationNo" class="control-label"></label>
+                    <input asp-for="VatRegistrationNo" class="form-control" />
+                    <span asp-validation-for="VatRegistrationNo" class="text-danger"></span>
+                </div>
+            </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-4">
@@ -286,6 +330,11 @@
                         <label asp-for="CustomerDiscGroup" class="control-label"></label>
                         <select asp-for="CustomerDiscGroupId" class="form-control" asp-items="ViewBag.CustomerDiscGroupId"></select>
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-bottom:40px">
                 </div>
             </div>
 
