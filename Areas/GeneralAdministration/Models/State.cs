@@ -11,6 +11,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Models
         public required string Code { get; set; }
         
         [StringLength(255)]
+        [Display(Name = "State Name")]
         public required string Name { get; set; }
         
         [Display(Name = "Active")]
