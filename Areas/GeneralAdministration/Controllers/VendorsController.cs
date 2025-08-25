@@ -23,7 +23,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
         // GET: GeneralAdministration/Vendors
         public async Task<IActionResult> Index()
         {
-            var smilyAccountantContext = _context.Vendors.Include(v => v.City).Include(v => v.Country).Include(v => v.PrimaryContact).Include(v => v.SecondaryContact);
+            var smilyAccountantContext = _context.Vendors.Include(v => v.City).Include(v => v.Country).Include(v => v.PrimaryContact).Include(v => v.SecondaryContact).Include(v =>v.State);
             return View(await smilyAccountantContext.ToListAsync());
         }
 
@@ -38,6 +38,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
             var vendor = await _context.Vendors
                 .Include(v => v.City)
                 .Include(v => v.Country)
+                .Include(v => v.State)
                 .Include(v => v.PrimaryContact)
                 .Include(v => v.SecondaryContact)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -54,6 +55,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
         {
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name");
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name");
+            ViewData["StateId"] = new SelectList(_context.States, "Id", "Name");
             ViewData["PrimaryContactId"] = new SelectList(_context.Contacts, "Id", "Name");
             ViewData["SecondaryContactId"] = new SelectList(_context.Contacts, "Id", "Name");
             return View();
@@ -64,11 +66,12 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VendorNo,Name,BalanceLCY,BalanceLCYasCustomer,BalanceDue,Address,Address2,CityId,StateProvince,CountryId,PostalCode,Phone,MobilePhone,Email,PrimaryContactId,SecondaryContactId")] Vendor vendor)
+        public async Task<IActionResult> Create([Bind("Id,VendorNo,Name,BalanceLCY,BalanceLCYasCustomer,BalanceDue,Address,Address2,CityId,StateId,CountryId,PostalCode,Phone,MobilePhone,Email,PrimaryContactId,SecondaryContactId")] Vendor vendor)
         {
             ModelState.Remove(nameof(City));
             ModelState.Remove("StateProvince");
             ModelState.Remove(nameof(Country));
+            ModelState.Remove(nameof(State));
             ModelState.Remove("PrimaryContact");
             ModelState.Remove("SecondaryContact");
 
@@ -81,6 +84,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", vendor.CityId);
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", vendor.CountryId);
+            ViewData["StateId"] = new SelectList(_context.States, "Id", "Name", vendor.StateId);
             ViewData["PrimaryContactId"] = new SelectList(_context.Contacts, "Id", "Name", vendor.PrimaryContactId);
             ViewData["SecondaryContactId"] = new SelectList(_context.Contacts, "Id", "Name", vendor.SecondaryContactId);
             return View(vendor);
@@ -101,6 +105,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", vendor.CityId);
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", vendor.CountryId);
+            ViewData["StateId"] = new SelectList(_context.States, "Id", "Name", vendor.StateId);
             ViewData["PrimaryContactId"] = new SelectList(_context.Contacts, "Id", "Name", vendor.PrimaryContactId);
             ViewData["SecondaryContactId"] = new SelectList(_context.Contacts, "Id", "Name", vendor.SecondaryContactId);
             return View(vendor);
@@ -111,7 +116,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,VendorNo,Name,BalanceLCY,BalanceLCYasCustomer,BalanceDue,Address,Address2,CityId,StateProvince,CountryId,PostalCode,Phone,MobilePhone,Email,PrimaryContactId,SecondaryContactId")] Vendor vendor)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,VendorNo,Name,BalanceLCY,BalanceLCYasCustomer,BalanceDue,Address,Address2,CityId,StateId,CountryId,PostalCode,Phone,MobilePhone,Email,PrimaryContactId,SecondaryContactId")] Vendor vendor)
         {
             if (id != vendor.Id)
             {
@@ -121,6 +126,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
             ModelState.Remove(nameof(City));
             ModelState.Remove("StateProvince");
             ModelState.Remove(nameof(Country));
+            ModelState.Remove(nameof(State));
             ModelState.Remove("PrimaryContact");
             ModelState.Remove("SecondaryContact");
 
@@ -146,6 +152,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", vendor.CityId);
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", vendor.CountryId);
+            ViewData["StateId"] = new SelectList(_context.States, "Id", "Name", vendor.StateId);
             ViewData["PrimaryContactId"] = new SelectList(_context.Contacts, "Id", "Name", vendor.PrimaryContactId);
             ViewData["SecondaryContactId"] = new SelectList(_context.Contacts, "Id", "Name", vendor.SecondaryContactId);
             return View(vendor);
@@ -162,6 +169,7 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Controllers
             var vendor = await _context.Vendors
                 .Include(v => v.City)
                 .Include(v => v.Country)
+                .Include(v => v.State)
                 .Include(v => v.PrimaryContact)
                 .Include(v => v.SecondaryContact)
                 .FirstOrDefaultAsync(m => m.Id == id);

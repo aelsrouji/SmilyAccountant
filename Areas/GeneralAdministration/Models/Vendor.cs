@@ -40,9 +40,11 @@ namespace SmilyAccountant.Areas.GeneralAdministration.Models
 
         public City City { get; set; }
 
-        [Display(Name="State/Province")]
-        public Guid StateProvince { get; set; }
+        public Guid StateId { get; set; }
 
+        [Display(Name = "State/Province")]
+        public State State { get; set; }
+        
         public Guid CountryId { get; set; }
 
         public Country Country { get; set; }

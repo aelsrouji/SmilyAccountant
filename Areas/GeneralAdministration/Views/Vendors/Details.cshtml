@@ -56,13 +56,13 @@
             @Html.DisplayNameFor(model => model.City)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City.Id)
+            @Html.DisplayFor(model => model.City.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StateProvince)
+        <dt class = "col-sm-2"> 
+            @Html.DisplayNameFor(model => model.State.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StateProvince)
+            @Html.DisplayFor(model => model.State.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Country)
@@ -98,13 +98,13 @@
             @Html.DisplayNameFor(model => model.PrimaryContact)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrimaryContact.Id)
+            @Html.DisplayFor(model => model.PrimaryContact.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SecondaryContact)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SecondaryContact.Id)
+            @Html.DisplayFor(model => model.SecondaryContact.Name)
         </dd>
     </dl>
 </div>

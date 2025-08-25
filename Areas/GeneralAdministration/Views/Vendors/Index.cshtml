@@ -37,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StateProvince)
+                @Html.DisplayNameFor(model => model.State)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Country)
@@ -88,10 +88,10 @@
                 @Html.DisplayFor(modelItem => item.Address2)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City.Id)
+                @Html.DisplayFor(modelItem => item.City.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StateProvince)
+                @Html.DisplayFor(modelItem => item.State.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Country.Code)
@@ -109,10 +109,10 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PrimaryContact.Id)
+                @Html.DisplayFor(modelItem => item.PrimaryContact.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SecondaryContact.Id)
+                @Html.DisplayFor(modelItem => item.SecondaryContact.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
